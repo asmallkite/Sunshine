@@ -3,6 +3,11 @@
     <!-- These settings headers are only used on tablets. -->
 
     <header
+        android:fragment="com.example.lizheng.sunshine.SettingsActivity$LocationPreferenceFragemnt"
+        android:icon="@drawable/ic_info_black_24dp"
+        android:title="@string/pref_location_key"/>
+
+    <header
         android:fragment="com.example.lizheng.sunshine.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/ic_info_black_24dp"
         android:title="@string/pref_header_general"/>
