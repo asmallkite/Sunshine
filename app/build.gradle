@@ -18,7 +18,7 @@ android {
         }
     }
     buildTypes.each {
-        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY',  "\"8ce2d76ff266777782e2fe4fe003bc33\""
+        it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', "\"8ce2d76ff266777782e2fe4fe003bc33\""
     }
 }
 
@@ -29,5 +29,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'com.android.support:design:24.2.1'
     testCompile 'junit:junit:4.12'
 }
