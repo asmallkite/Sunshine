@@ -38,7 +38,7 @@ public class DetailActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(getActivity(), "Detail", Toast.LENGTH_SHORT).show();
-        return super.onOptionsItemSelected(item);
+        startActivity(new Intent(getActivity(), SettingsActivity.class));
+        return true;
     }
 }
