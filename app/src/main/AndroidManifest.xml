@@ -32,7 +32,7 @@
             android:parentActivityName=".DetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.lizheng.sunshine.MainActivity"/>
+                android:value="com.example.lizheng.sunshine.DetailActivity"/>
         </activity>
     </application>
 

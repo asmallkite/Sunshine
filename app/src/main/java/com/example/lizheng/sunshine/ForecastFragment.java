@@ -61,6 +61,7 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        updateWeather();
         // Inflate the layout for this fragment
         View  rootView = inflater.inflate(R.layout.fragment_forecast, container, false);
         String[] data = {
@@ -103,17 +104,18 @@ public class ForecastFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         if (R.id.action_refresh == item.getItemId()) {
-            Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
-            Log.d("Fragment", "refresh");
-            FetchWeatherTask weatherTask =new FetchWeatherTask();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String location = prefs.getString(getString(R.string.pref_location_key),
-                    getString(R.string.pref_location_default));
-            weatherTask.execute(location);
+           updateWeather();
             Log.d("Fragment", "execute");
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+   public  void updateWeather(){
+        FetchWeatherTask weatherTask =new FetchWeatherTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+        weatherTask.execute(location);
     }
 
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
