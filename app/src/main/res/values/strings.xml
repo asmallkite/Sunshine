@@ -5,8 +5,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_deatil">DeatilActivity</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_settings">Settings</string>
-
+    <string name="map">Map</string>
+    <string name="action_share">Share</string>
 
     <string name="pref_location_label">Location</string>
     <string name="pref_location_key">location</string>
