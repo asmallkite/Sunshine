@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == R.id.setting) {
             startActivity(new Intent(this,SettingsActivity.class));
             return true;
         }
@@ -64,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
-//            Log.d(LOG_TAG, "Couldn't call " + location + ", no receiving apps installed!");
             Toast.makeText(this, "Couldn't call " + location + ", no receiving apps installed!", Toast.LENGTH_SHORT).show();
         }
     }

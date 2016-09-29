@@ -60,7 +60,7 @@ public class DetailActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_settings) {
+        if (item.getItemId() == R.id.setting) {
             startActivity(new Intent(getActivity(), SettingsActivity.class));
         }
         return true;

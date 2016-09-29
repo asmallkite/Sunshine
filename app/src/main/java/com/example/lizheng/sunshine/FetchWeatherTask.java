@@ -232,7 +232,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             long locationId = addLocation(locationSetting, cityName, cityLatitude, cityLongitude);
 
             // Insert the new weather information into the database
-            Vector<ContentValues> cVVector = new Vector<ContentValues>(weatherArray.length());
+            Vector<ContentValues> cVVector = new Vector<>(weatherArray.length());
 
             // OWM returns daily forecasts based upon the local time of the city that is being
             // asked for, which means that we need to know the GMT offset to translate this data
@@ -308,6 +308,11 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             // add to database
             if ( cVVector.size() > 0 ) {
                 // Student: call bulkInsert to add the weatherEntries to the database here
+                ContentValues[] cvArray = new ContentValues[cVVector.size()];
+                cVVector.toArray(cvArray);
+                mContext.getContentResolver().bulkInsert(
+                        WeatherEntry.CONTENT_URI, cvArray
+                );
             }
 
             // Sort order:  Ascending, by date.
@@ -320,7 +325,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             Cursor cur = mContext.getContentResolver().query(weatherForLocationUri,
                     null, null, null, sortOrder);
 
-            cVVector = new Vector<ContentValues>(cur.getCount());
+            cVVector = new Vector<>(cur.getCount());
             if ( cur.moveToFirst() ) {
                 do {
                     ContentValues cv = new ContentValues();
@@ -344,7 +349,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
     @Override
     protected String[] doInBackground(String... params) {
 
-        // If there's no zip code, there's nothing to look up.  Verify size of params.
+        // If there's no1 zip code, there's nothing to look up.  Verify size of params.
         if (params.length == 0) {
             return null;
         }
@@ -372,12 +377,14 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
+            final String APPID_PARAM = "APPID";
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, params[0])
                     .appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(APPID_PARAM, BuildConfig.OPEN_WEATHER_MAP_API_KEY)
                     .build();
 
             URL url = new URL(builtUri.toString());
@@ -389,7 +396,7 @@ public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
             // Read the input stream into a String
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
