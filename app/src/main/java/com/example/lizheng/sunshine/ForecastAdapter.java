@@ -19,6 +19,11 @@ public class ForecastAdapter extends CursorAdapter {
         super(context, c, flags);
     }
 
+    private static final int VIEW_TYPE_COUNT = 2;
+    private static final int VIEW_TYPE_TODAY = 0;
+    private static final int VIEW_TYPE_FUTURE_DAY = 1;
+
+
     /**
      * Prepare the weather high/lows for presentation.
      */
@@ -47,9 +52,12 @@ public class ForecastAdapter extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = LayoutInflater.from(context).inflate(R.layout.list_item_forecast, parent, false);
-
-        return view;
+        int viewType = getItemViewType(cursor.getPosition());
+        if (viewType == VIEW_TYPE_TODAY) {
+            return LayoutInflater.from(context).inflate(R.layout.list_item_forecast_today, parent, false);
+        } else {
+            return LayoutInflater.from(context).inflate(R.layout.list_item_forecast, parent, false);
+        }
     }
 
     /*
@@ -89,5 +97,15 @@ public class ForecastAdapter extends CursorAdapter {
         double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
         TextView lowView = (TextView) view.findViewById(R.id.list_item_low_textview);
         lowView.setText(Utility.formatTemperature(low, isMetric));
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position == 0 ? VIEW_TYPE_TODAY : VIEW_TYPE_FUTURE_DAY;
+    }
+
+    @Override
+    public  int getViewTypeCount() {
+        return VIEW_TYPE_COUNT;
     }
 }
